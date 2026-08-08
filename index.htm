@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЕГЭ по Ashbury Heights</title>
+    <link rel="icon" href="img/icon2.png">
+
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
+
+
+    <style>
+        /*  СТИЛИ И ДИЗАЙН  */
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: #f0f2f5;
+            /* display: flex;
+            justify-content: center;
+            align-items: center; */
+            height: 100vh;
+            /* margin: 0; */
+            /* display: flex;
+            flex-direction: column; */
+        }
+
+
+
+
+        .quiz-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+
+        .progress {
+            font-size: 14px;
+            color: #65676b;
+            margin-bottom: 10px;
+        }
+
+        .question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1c1e21;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .option-btn {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            background-color: #f0f2f5;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            background-color: #e4e6eb;
+        }
+
+        /* стиль ДЛЯ ВЫБРАННОГО варианта (до проверки) */
+        .option-btn.selected {
+            background-color: #e7f3ff;
+            border-color: #1877f2;
+            color: #1877f2;
+        }
+
+        /* стиль для правильного ответа (после проверки) */
+        .option-btn.correct {
+            background-color: #e7f5ed;
+            border-color: #24a85c;
+            color: #166534;
+            font-weight: bold;
+        }
+
+        /* стиль для неправильного ответа (после проверки) */
+        .option-btn.wrong {
+            background-color: #fde8e8;
+            border-color: #de3b3b;
+            color: #9b1c1c;
+        }
+
+        .next-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: none;
+            /* Появляется, когда выбран хотя бы один вариант */
+        }
+
+        .next-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .result-container {
+            text-align: center;
+        }
+
+        .result-score {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="container">
+        <header>
+            <div class="header">
+                <nav>
+                    <div class="menu">
+
+                        <a href="https://en.wikipedia.org/wiki/Ashbury_Heights"><img src="img/logo.png" alt=""></a>
+
+                        <!-- <ul>
+                            <li class="pervi"><a href="">bubsiki</a></li>
+                            <li><a href="https://t.me/ashbury_heights_confession">наша конфа</a></li>
+                            <li><a href="">авторы агата и зава</a></li>
+                        </ul> -->
+
+
+                        <!-- <ul class="nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Active</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link disabled">Disabled</a>
+                            </li>
+                        </ul> -->
+
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <div class="container-fluid">
+
+                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarNav">
+                                    <ul class="navbar-nav">
+
+                                        <li class="nav-item">
+                                            <a class="nav-link active" aria-current="page"
+                                                href="https://t.me/ashbury_heights_confession">Наша конфа</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="https://t.me/zawaahh">Тгк Завы</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="https://t.me/Ashbury_Heights_confbot">Тейкобот</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+
+                    </div>
+                </nav>
+
+                <div class="headt">
+                    <h1>Здравствуй!</h1>
+                    <p class="p1" text-center>Проверь себя на знание группы "Ashbury Heights".
+                    </p>
+                    <p class="p2">Читай вопросы и выбирай ответы внимательно.</p>
+                    <p class="p2">По желанию поделись результатами опроса :)</p>
+                    <p class="p2">Желаем наилучшего</p>
+                </div>
+
+            </div>
+        </header>
+
+        <section class="section2">
+            <div class="quiz">
+                <div class="quiz-container">
+                    <!-- блок квиза -->
+                    <div id="quiz-block">
+                        <div class="progress" id="progress">Вопрос 1 из 15</div>
+                        <div class="question" id="question-text">Текст вопроса загружается...</div>
+                        <div id="options-container" class="options-list">
+                            <!-- кнопки вариантов -->
+                        </div>
+                        <button class="next-btn" id="next-button" onclick="handleNextClick()">Дальше</button>
+                    </div>
+
+                    <!-- блок результатов -->
+                    <div id="result-block" class="result-container" style="display: none;">
+                        <h2>Вы прошли ЕГЭ по эшбурам!</h2>
+                        <div class="result-score" id="result-text">Вы ответили правильно на 0 из 0.</div>
+                        <button class="option-btn" style="text-align:center; background:#007bff; color:white;"
+                            onclick="restartQuiz()">Пройти еще раз</button>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                // БАЗА ДАННЫХ ВОПРОСОВ
+                const quizData = [
+                    {
+                        question: "2+2?",
+                        options: ["67", "4", "228"],
+                        correctIndex: 1
+                    },
+                    {
+                        question: "1+1?",
+                        options: ["ща", "ща", "2"],
+                        correctIndex: 2
+                    },
+                    {
+                        question: "3+3",
+                        options: ["6", "5", "7"],
+                        correctIndex: 0
+                    },
+
+                    {
+                        question: "сколько альбомов у эшбаров",
+                        options: ["5", "1", "67"],
+                        correctIndex: 2
+                    },
+
+                    {
+                        question: "скоко лет ясмин",
+                        options: ["1", "677", "3"],
+                        correctIndex: 1
+                    },
+
+                    {
+                        question: "we are",
+                        options: ["necrotronic", "непридумала", "эххх"],
+                        correctIndex: 0
+                    },
+
+                    {
+                        question: "димас быстрее фоткай",
+                        options: ["ща", "ща ща ща ща", "щас"],
+                        correctIndex: 1
+                    },
+
+
+                    {
+                        question: "лайф ис...",
+                        options: ["киллинг ми", "петрушка", "фантасмагория"],
+                        correctIndex: 2
+                    },
+
+
+                    {
+                        question: "не придумала эх",
+                        options: ["ответ первый", ".", "."],
+                        correctIndex: 0
+                    },
+
+
+                    {
+                        question: "не придумала эх",
+                        options: ["ответ первый", ".", "."],
+                        correctIndex: 0
+                    },
+
+
+                    {
+                        question: "не придумала эх",
+                        options: ["ответ первый", ".", "."],
+                        correctIndex: 0
+                    },
+
+
+                    {
+                        question: "не придумала эх",
+                        options: ["ответ первый", ".", "."],
+                        correctIndex: 0
+                    },
+
+
+                    {
+                        question: "не придумала эх",
+                        options: ["ответ первый", ".", "."],
+                        correctIndex: 0
+                    },
+
+
+                    {
+                        question: "не придумала эх",
+                        options: ["ответ первый", ".", "."],
+                        correctIndex: 0
+                    },
+
+
+                    {
+                        question: "не придумала эх",
+                        options: ["ответ первый", ".", "."],
+                        correctIndex: 0
+                    }
+                ];
+
+                let currentQuestionIndex = 0;
+                let correctAnswersCount = 0;
+
+                let selectedIndex = null; // индекс выбранного пользователем ответа
+                let isChecked = false;    // проверен ли уже текущий вопрос
+
+                const progressEl = document.getElementById("progress");
+                const questionTextEl = document.getElementById("question-text");
+                const optionsContainerEl = document.getElementById("options-container");
+                const nextButtonEl = document.getElementById("next-button");
+                const quizBlockEl = document.getElementById("quiz-block");
+                const resultBlockEl = document.getElementById("result-block");
+                const resultTextEl = document.getElementById("result-text");
+
+                function startQuiz() {
+                    currentQuestionIndex = 0;
+                    correctAnswersCount = 0;
+                    quizBlockEl.style.display = "block";
+                    resultBlockEl.style.display = "none";
+                    showQuestion();
+                }
+
+                function showQuestion() {
+                    selectedIndex = null;
+                    isChecked = false;
+                    nextButtonEl.style.display = "none";
+                    nextButtonEl.innerText = "Далее"; // возвращаем исходный текст кнопки
+                    optionsContainerEl.innerHTML = "";
+
+                    const currentData = quizData[currentQuestionIndex];
+
+                    progressEl.innerText = `Вопрос ${currentQuestionIndex + 1} из ${quizData.length}`;
+                    questionTextEl.innerText = currentData.question;
+
+                    currentData.options.forEach((optionText, index) => {
+                        const button = document.createElement("button");
+                        button.classList.add("option-btn");
+                        button.innerText = optionText;
+                        button.onclick = () => selectOption(button, index);
+                        optionsContainerEl.appendChild(button);
+                    });
+                }
+
+                // Просто выделяем кликнутый вариант ответа
+                function selectOption(clickedButton, index) {
+                    if (isChecked) return; // если вопрос уже проверен, кликать нельзя
+
+                    selectedIndex = index;
+
+                    // снимаем выделение со всех кнопок и добавляем только кликнутой
+                    const allButtons = optionsContainerEl.querySelectorAll(".option-btn");
+                    allButtons.forEach(btn => btn.classList.remove("selected"));
+                    clickedButton.classList.add("selected");
+
+                    // показываем кнопку "Дальше", так как выбор сделан
+                    nextButtonEl.style.display = "block";
+                }
+
+                // умная кнопка сначала проверяет, а при повторном клике идет дальше
+                function handleNextClick() {
+                    if (!isChecked) {
+                        checkAnswer();
+                    } else {
+                        loadNextQuestion();
+                    }
+                }
+
+                // проверка ответа по нажатию на "дальше"
+                function checkAnswer() {
+                    isChecked = true;
+                    const currentData = quizData[currentQuestionIndex];
+                    const correctIndex = currentData.correctIndex;
+                    const allButtons = optionsContainerEl.querySelectorAll(".option-btn");
+
+                    // утключаем кнопки, чтобы нельзя было изменить выбор
+                    allButtons.forEach(btn => {
+                        btn.disabled = true;
+                        btn.classList.remove("selected"); // убираем синее выделение перед подсветкой результатов
+                    });
+
+                    // подсвечиваем результаты
+                    if (selectedIndex === correctIndex) {
+                        allButtons[selectedIndex].classList.add("correct");
+                        correctAnswersCount++;
+                    } else {
+                        allButtons[selectedIndex].classList.add("wrong");
+                        allButtons[correctIndex].classList.add("correct"); // показываем правильный
+                    }
+
+                    // меняем текст кнопки, намекая, что надо кликнуть еще раз для перехода
+                    nextButtonEl.innerText = "Следующий вопрос";
+                }
+
+                function loadNextQuestion() {
+                    currentQuestionIndex++;
+
+                    if (currentQuestionIndex < quizData.length) {
+                        showQuestion();
+                    } else {
+                        showResults();
+                    }
+                }
+
+                function showResults() {
+                    quizBlockEl.style.display = "none";
+                    resultBlockEl.style.display = "block";
+
+                    const wrongAnswersCount = quizData.length - correctAnswersCount;
+                    resultTextEl.innerHTML = `
+                Правильных ответов: <span style="color: #24a85c">${correctAnswersCount}</span><br>
+                Неправильных ответов: <span style="color: #de3b3b">${wrongAnswersCount}</span>
+            `;
+                }
+
+                function restartQuiz() {
+                    startQuiz();
+                }
+
+                startQuiz();
+            </script>
+
+        </section>
+
+
+        <section>
+            <div class="section1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8">
+                            <h1>ASHBURY HEIGHTS</h1>
+                            <p class="p333"><span>Ashbury Heights</span> — шведский электронный музыкальный дуэт из
+                                Сундсвалля, Медельпад,
+                                образованный
+                                в 2005 году. Первоначально в состав дуэта входили <span>Андерс Хагстрём</span> (вокал,
+                                автор песен,
+                                музыка и
+                                программирование) и <span>Ясмин Улин</span> (вокал). Улин покинула группу после выхода
+                                их EP «Morning Star
+                                in a Black Car» , и её заменила <span>Кари Берг</span> (вокал) в качестве ведущей
+                                вокалистки. Берг
+                                была
+                                участницей Ashbury Heights до 2010 года и приняла участие в записи одного альбома,
+                                <span>«Take Cair
+                                    Paramour»</span> . В 2010 году, после длительногопопажопа спора между Хагстрёмом и
+                                лейблом Out
+                                of Line
+                                , группа распалась. Спор был урегулирован в 2011 году, после чего Хагстрём и Out of Line
+                                возобновили сотрудничество. В 2013 году к группе присоединилась <span>Теа Ф. Тайм</span>
+                                (вокал и
+                                тексты
+                                песен) в качестве новой вокалистки, ранее работавшая в сфере альтернативного
+                                моделирования и
+                                бурлеск-шоу (под сценическим псевдонимом Tea Time). После ухода Тайм в группу вернулась
+                                участница первого состава Ясмин Улин.
+                            </p>
+
+
+                        </div>
+
+                        <div class="col-lg-4 col-md-4">
+                            <div class="ds">
+                                <h1>SINGLES</h1>
+                                <ul>
+                                    <li>• Firebird (2018)</li>
+                                    <li>• Spectres from the Black Moss (2020)</li>
+                                    <li>• Wild Eyes feat. Madil Hardis (2020)</li>
+                                    <li>• One Trick Pony feat. Massive Ego (2021)</li>
+                                    <li>• Cutscenes feat. Danny Blu (2021)</li>
+                                    <li>• A Cut In A Place feat. Madil Hardis (2022)</li>
+                                    <li>• Is That Your Uniform (2022)</li>
+                                    <li>• Tunguska feat. Corlyx (2023)</li>
+                                    <li>• Ghosts Electric (2023)</li>
+                                    <li>• A Lifetime in the Service of Darkness feat. Ulrike Goldmann (2024)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </section>
+
+
+        <section class="section3">
+            <div class="container">
+                <div class="row">
+                    <h1>MEMBERS</h1>
+                    <div class="memb">
+
+                        <div class="col-lg-4 col-md-4">
+                            <div class="and">
+                                <div class="mtext1">
+                                    <h1>Anders Hagström</h1>
+
+                                </div>
+                                <div class="and-box">
+                                    <img src="img/and22.jpg" alt="">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-lg-4 col-md-4">
+                            <div class="yas">
+                                <div class="mtext2">
+                                    <h1>Yasmine Uhlin</h1>
+                                </div>
+                                <div class="yas-box">
+                                    <img src="img/yas44.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+
+                    <div class="memb2">
+                        <div class="col-lg-4 col-md-4">
+                            <div class="kari">
+                                <div class="mtext3">
+                                    <h1>Kari Berg</h1>
+                                </div>
+
+                                <div class="kari-box">
+                                    <img src="img/кари.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-8 col-md-8">
+                            <div class="tea">
+                                <div class="mtext4">
+                                    <h1>Tea F. Thimé</h1>
+                                </div>
+
+                                <div class="tea-box">
+                                    <img src="img/tea.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="yyoh">
+                        <div class="col-lg-4 col-md-4">
+                            <div class="yoh">
+                                <div class="mtext3">
+                                    <h1>Johan Andersson</h1>
+                                </div>
+
+                                <div class="joh-box">
+                                    <img src="img/johan.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class="section4">
+            <div class="container">
+                <div class="row">
+                    <div class="zag">
+                        <h2>Советуем ознакомиться:</h2>
+                    </div>
+
+                    <div class="block">
+
+                        <div class="col-lg-6 col-md-12">
+                            <div class="javell">
+                                <h4><a href="https://t.me/Ashbury_Heights_nation/371">Javelynn</a></h4>
+                            </div>
+
+                            <div class="javvv">
+                                <div class="javim">
+                                    <img class="jav" src="img/jav.jpg" alt="">
+                                </div>
+                                <div class="txt">
+
+                                    <p>Javelynn — шведская музыкальная группа, основанная в ноябре 2008 года в
+                                        Стокгольме
+                                        бывшей вокалисткой дуэта Ashbury Heights Ясмин Улин. Коллектив исполняет музыку
+                                        в
+                                        жанрах синти-поп и электроклэш, сочетая мрачную лирику с энергичными
+                                        электронными
+                                        аранжировками. <span><a href="https://t.me/Ashbury_Heights_nation/371">Читать
+                                                далее...</a></span></p>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="col-lg-6 col-md-12">
+                            <div class="agap">
+                                <h4><a href="https://t.me/Ashbury_Heights_nation/430">Agent Apelsin</a></h4>
+
+                            </div>
+
+                            <div class="agg">
+                                <div class="agim">
+                                    <img class="ag" src="img/ag.jpg" alt="">
+                                </div>
+                                <div class="txt2">
+
+
+                                    <p>Agent Apelsin — это локальный и недолговечный шведский музыкальный проект,
+                                        существовавший в начале 2000-х годов. Он представлял огромный интерес фанатов,
+                                        поскольку в проекте участвовал Андерс Хагстрём - будущий создатель культовой
+                                        группы
+                                        Ashbury Heights. <span><a href="https://t.me/Ashbury_Heights_nation/430">Читать
+                                                далее...</a></span></p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="block2">
+                        <div class="col-lg-12">
+                            <div class="necr">
+                                <h4><a href="https://t.me/ashbury_heights_confession/536">Necrotronic</a></h4>
+
+                            </div>
+
+                            <div class="nncc">
+                                <div class="ncimg">
+                                    <img class="nc" src="img/nc.jpg" alt="">
+                                </div>
+
+
+                                <div class="nctext">
+
+
+                                    <p>Necrotronic (название с греч. νεκρός — "мертвый" и от англ. "electronic" видимо
+                                        выбрано ради атмосферы и дословно может значить "мертвая электроника") —
+                                        шведская
+                                        музыкальна группа, родом также из Сундвалля, появившаяся в 1997-1999 годах.
+                                        Ранее
+                                        коллектив ещё назывался Lovecide/Heartcide. На момент создания в его состав
+                                        входили
+                                        три человека: Prophet (Андерс Хагстрём), Diablo (Ола Олен) и God almigh-T
+                                        (Йоаким
+                                        Стен). <span><a href="https://t.me/ashbury_heights_confession/536">Читать
+                                                далее...</a></span> </p>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+
+
+        <footer>
+            <div class="footer">
+
+                <!-- <div class="linee">
+                    <h1>svjnsivjvdo;j</h1>
+                </div> -->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="ff">
+                                <h5>Полезности</h5>
+                                <ul>
+                                    <li>• <a href="https://open.spotify.com/artist/3rclGaNhwMNMcU2GkN91j9">Спотифай</a>
+                                    </li>
+                                    <li>• <a href="https://t.me/Ashbury_Heights_confbot">Кинуть тейк</a></li>
+                                    <li>• <a href="https://www.youtube.com/channel/UC4zZJQNdstNEKHsr0MV413Q">Ютубчик
+                                            тема</a></li>
+                                    <li>• <a href="index2.htm">Сказать спасиба</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="col-lg-4">
+                            <div class="fimg">
+                                <a href="https://pin.it/3tUk0zG5i"><img src="img/ffff.jpeg" alt=""></a>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="col-lg-4">
+                            <div class="autors">
+                                <div class="taut">
+                                    <h5>Авторы</h5>
+                                </div>
+
+                                <div class="auimg">
+                                    <p><img class="pfp1" src="img/pfp.png" alt=""><span>ㅤАгата ㅤ|ㅤ </span><img
+                                            class="pfp1" src="img/pfp.png" alt=""><span>ㅤЗава</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mem">
+                            <p>© 2026 Зава Солюшнс Лимитед. Все права пахихищены</p>
+                        </div>
+
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+    </div>
+    </footer>
+    </div>
+
+    <script src="js/bootstrap.js"></script>
+
+</body>
+
+</html>
